@@ -25,6 +25,7 @@ h1 {
   color: var(--white-color);
   font-weight: normal;
   text-align: center;
+  text-shadow: 13px 4px 1px #333030, 0 0 1em #d31017, 0 0 0.2em #d31017;
   letter-spacing: 6px;
   cursor: pointer;
   margin: 0 auto;
@@ -75,12 +76,14 @@ header {
   padding: 20px 0;
   flex-basis: 80%;
 }
+
 /* END HEADER */
 
 /* MAIN */
 main {
   flex-grow: 1;
 }
+
 /* END MAIN */
 
 /* WELCOME PAGE */
@@ -137,15 +140,18 @@ main {
   color: var(--red-color);
   background-color: var(--white-color);
 }
+
 /* END WELCOME PAGE */
 
 /* TOASTIFY COLOR */
 .toastify-color-welcome {
   color: var(--black-color);
 }
+
 .toastify-color {
   color: var(--white-color);
 }
+
 /* END TOASTIFY COLOR */
 
 /* FOOTER */
@@ -186,6 +192,7 @@ footer {
   flex-direction: column;
   align-items: stretch;
 }
+
 /* END ERROR PAGE */
 
 /* SIGNUP - LOGIN - FORGETPASSWORD */
@@ -217,6 +224,7 @@ footer {
   background-image: url(images/spiderman.png);
   background-repeat: no-repeat;
   background-position: center center;
+
   flex: 0 1 50%;
 }
 
@@ -342,6 +350,7 @@ button[disabled]:hover {
 .simpleLink:hover {
   color: var(--red-color);
 }
+
 /* END SIGNUP - LOGIN - FORGETPASSWORD */
 
 /* LOADER */
@@ -380,6 +389,7 @@ button[disabled]:hover {
     transform: rotate(360deg);
   }
 }
+
 /* END LOADER */
 
 /* LOGOUT SWITCH */
@@ -443,6 +453,7 @@ input:checked+.slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
 /* END LOGOUT SWITCH */
 
 /* LEVELS */
@@ -456,6 +467,7 @@ input:checked+.slider:before {
 .headingLevels {
   margin: 0;
 }
+
 /* END LEVELS */
 
 /* PROGRESS BAR */
@@ -491,6 +503,7 @@ input:checked+.slider:before {
   border-radius: 5px;
   background: var(--red-color);
 }
+
 /* END PROGRESS BAR */
 
 /* ANSWER OPTIONS*/
@@ -515,6 +528,7 @@ input:checked+.slider:before {
   cursor: pointer;
   color: var(--white-color);
 }
+
 /* END ANSWER OPTIONS*/
 
 /* QUIZOVER */
@@ -626,6 +640,7 @@ input:checked+.slider:before {
   border: 2px solid var(--red-color);
   color: var(--white-color);
 }
+
 /* END QUIZOVER */
 
 /* SUBMIT BUTTON */
@@ -647,6 +662,7 @@ input:checked+.slider:before {
   color: var(--white-color);
   text-transform: uppercase;
 }
+
 /* END SUBMIT BUTTON */
 
 /* MODAL */
@@ -773,6 +789,7 @@ input:checked+.slider:before {
   color: var(--white-color);
   border: 1px solid var(--light-grey-color);
 }
+
 /* END MODAL */
 
 /* MEDIA QUERIES */
@@ -825,6 +842,7 @@ input:checked+.slider:before {
 }
 
 @media screen and (max-width: 980px) {
+
   /* Change Modal elements */
   .modalBody {
     flex-direction: column;
@@ -841,8 +859,9 @@ input:checked+.slider:before {
 }
 
 @media screen and (max-width: 1110px) {
-   /* make container full width */
-   .container {
+
+  /* make container full width */
+  .container {
     flex: 0 1 100%;
   }
 
