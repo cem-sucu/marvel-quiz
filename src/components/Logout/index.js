@@ -38,7 +38,7 @@ const Logout = () => {
                 />
                 <span className="slider round" data-tip="Déconnexion"></span>
                 <br />
-                <p>Connexion/Déconnexion</p>
+                <p>Déconnexion</p>
             </label>
         </div>
     );

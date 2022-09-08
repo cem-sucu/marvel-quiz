@@ -448,6 +448,12 @@ input:checked+.slider:before {
 
 .slider.round {
   border-radius: 34px;
+  background-color: #0cb765;
+}
+
+span.slider.round:after{
+  background-color: #d31017;
+
 }
 
 .slider.round:before {
