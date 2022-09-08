@@ -8,6 +8,7 @@ import Landing from "../Landing";
 import Login from "../Login";
 import SignUp from "../SignUp";
 import Welcome from "../Welcome";
+import ForgetPassword from "../ForgetPassword";
 
 function App() {
     return (
@@ -18,6 +19,11 @@ function App() {
                 <Route exact path="/welcome" element={<Welcome />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/signup" element={<SignUp />} />
+                <Route
+                    exact
+                    path="/forgetpassword"
+                    element={<ForgetPassword />}
+                />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
             <Footer />

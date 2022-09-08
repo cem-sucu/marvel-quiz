@@ -37,6 +37,8 @@ const Logout = () => {
                     checked={checked}
                 />
                 <span className="slider round" data-tip="Déconnexion"></span>
+                <br />
+                <p>Connexion/Déconnexion</p>
             </label>
         </div>
     );
