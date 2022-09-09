@@ -1,10 +1,12 @@
-// Firebase 9
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../Firebase/firebaseConfig";
+import { auth, user } from "../Firebase/firebaseConfig";
+import { setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
+    const navigate = useNavigate();
+
     const data = {
         pseudo: "",
         email: "",
@@ -15,17 +17,21 @@ const Signup = (props) => {
     const [loginData, setLoginData] = useState(data);
     const [error, setError] = useState("");
 
-    const navigate = useNavigate();
-
     const handleChange = (e) => {
         setLoginData({ ...loginData, [e.target.id]: e.target.value });
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        const { email, password } = loginData;
+        e.preventDefault(); // eviter le chargement de la page
+        const { email, password, pseudo } = loginData;
         createUserWithEmailAndPassword(auth, email, password)
-            .then((user) => {
+            .then((authUser) => {
+                return setDoc(user(authUser.user.uid), {
+                    pseudo,
+                    email,
+                });
+            })
+            .then(() => {
                 setLoginData({ ...data });
                 navigate("/welcome");
             })
@@ -38,7 +44,7 @@ const Signup = (props) => {
     const { pseudo, email, password, confirmPassword } = loginData;
 
     const btn =
-        pseudo === "" ||
+        pseudo.indexOf("@") > -1 ||
         email === "" ||
         password === "" ||
         password !== confirmPassword ? (
@@ -112,10 +118,9 @@ const Signup = (props) => {
 
                             {btn}
                         </form>
-
                         <div className="linkContainer">
                             <Link className="simpleLink" to="/login">
-                                Déjà inscrit ? Connectez-vous.
+                                Déjà inscrit? Connectez-vous.
                             </Link>
                         </div>
                     </div>

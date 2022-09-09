@@ -1,6 +1,6 @@
-// Firebase v9
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const config = {
     apiKey: "AIzaSyC_g7_zMz59EQbiwJVTXgTf1KgRxyFYvSE",
@@ -14,4 +14,6 @@ const config = {
 const app = initializeApp(config);
 export const auth = getAuth(app);
 
-export default config;
+export const firestore = getFirestore();
+
+export const user = (uid) => doc(firestore, `users/${uid}`);
