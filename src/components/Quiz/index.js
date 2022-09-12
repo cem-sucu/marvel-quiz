@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Levels from "../Levels";
 import { QuizMarvel } from "../quizMarvel";
 import ProgressBar from "../ProgessBar";
 import "react-toastify/dist/ReactToastify.min.css";
 import { toast } from "react-toastify";
+import QuizOver from "../QuizOver";
 
 toast.configure();
 
@@ -20,6 +21,7 @@ class Quiz extends Component {
         userAnswer: null,
         score: 0,
         showWelcomeMsg: false,
+        quizEnd: false,
     };
 
     storeDataRef = React.createRef();
@@ -44,15 +46,16 @@ class Quiz extends Component {
         if (!this.state.showWelcomeMsg) {
             this.setState({
                 showWelcomeMsg: true,
-            })
+            });
             toast(`Bienvenu ${pseudo}, et bonne chance !`, {
                 position: "top-right",
-                autoClose: 5000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
+                bodyClassName: "toastify-connexion-color",
             });
         }
     };
@@ -63,7 +66,7 @@ class Quiz extends Component {
 
     nextQuestions = () => {
         if (this.state.idQuestion === this.state.maxQuestions - 1) {
-            //End
+            this.gameOver();
         } else {
             this.setState((prevState) => ({
                 idQuestion: prevState.idQuestion + 1,
@@ -75,7 +78,7 @@ class Quiz extends Component {
             this.setState((prevState) => ({
                 score: prevState.score + 1,
             }));
-            toast.success('Bravo, bonne réponse', {
+            toast.success("Bravo, bonne réponse !", {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -83,10 +86,10 @@ class Quiz extends Component {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                bodyClassName: "toastify-color"
-                });
+                bodyClassName: "toastify-color",
+            });
         } else {
-            toast.warn('Mauvaise réponse', {
+            toast.error("Mauvaise réponse !", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -94,8 +97,8 @@ class Quiz extends Component {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                bodyClassName: "toastify-color"
-                });
+                bodyClassName: "toastify-color",
+            });
         }
     };
 
@@ -131,6 +134,12 @@ class Quiz extends Component {
         });
     };
 
+    gameOver = () => {
+        this.setState({
+            quizEnd: true,
+        });
+    };
+
     render() {
         // const { pseudo } = this.props.userData;
 
@@ -148,8 +157,10 @@ class Quiz extends Component {
             );
         });
 
-        return (
-            <div>
+        return this.state.quizEnd ? (
+            <QuizOver />
+        ) : (
+            <Fragment>
                 <Levels />d
                 <ProgressBar />
                 <h2>{this.state.question}</h2>
@@ -161,7 +172,7 @@ class Quiz extends Component {
                 >
                     Suivant
                 </button>
-            </div>
+            </Fragment>
         );
     }
 }

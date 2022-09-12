@@ -144,6 +144,11 @@ main {
 /* END WELCOME PAGE */
 
 /* TOASTIFY COLOR */
+.toastify-connexion-color{
+  color: #4979ac;
+  font-weight: 900;
+  font-size: 18px;
+}
 .toastify-color-welcome {
   color: var(--black-color);
 }
