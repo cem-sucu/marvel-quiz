@@ -24,13 +24,13 @@ class Quiz extends Component {
         quizEnd: false,
     };
 
-    storeDataRef = React.createRef();
+    storedDataRef = React.createRef();
 
     loadQuestions = (level) => {
         const fetchedArrayQuiz = QuizMarvel[0].quizz[level];
 
         if (fetchedArrayQuiz.length >= this.state.maxQuestions) {
-            this.storeDataRef.current = fetchedArrayQuiz;
+            this.storedDataRef.current = fetchedArrayQuiz;
             const newArray = fetchedArrayQuiz.map(
                 ({ answer, ...keepRest }) => keepRest
             );
@@ -64,7 +64,7 @@ class Quiz extends Component {
         this.loadQuestions(this.state.levelsName[this.state.quizLevel]);
     }
 
-    nextQuestions = () => {
+    nextQuestion = () => {
         if (this.state.idQuestion === this.state.maxQuestions - 1) {
             this.gameOver();
         } else {
@@ -73,7 +73,7 @@ class Quiz extends Component {
             }));
         }
         const goodAnswer =
-            this.storeDataRef.current[this.state.idQuestion].answer;
+            this.storedDataRef.current[this.state.idQuestion].answer;
         if (this.state.userAnswer === goodAnswer) {
             this.setState((prevState) => ({
                 score: prevState.score + 1,
@@ -134,10 +134,26 @@ class Quiz extends Component {
         });
     };
 
+    getPercentage = (maxQuest, ourScore) => (ourScore / maxQuest) * 100;
+
     gameOver = () => {
-        this.setState({
-            quizEnd: true,
-        });
+        const gradepercent = this.getPercentage(
+            this.state.maxQuestions,
+            this.state.score
+        );
+
+        if (gradepercent >= 50) {
+            this.setState({
+                quizLevel: this.state.quizLevel + 1,
+                percent: gradepercent,
+                quizEnd: true,
+            });
+        } else {
+            this.setState({
+                percent: gradepercent,
+                quizEnd: true,
+            });
+        }
     };
 
     render() {
@@ -158,7 +174,14 @@ class Quiz extends Component {
         });
 
         return this.state.quizEnd ? (
-            <QuizOver ref={this.storeDataRef}/>
+            <QuizOver
+                ref={this.storedDataRef}
+                levelsName={this.state.levelsName}
+                score={this.state.score}
+                maxQuestions={this.state.maxQuestions}
+                quizLevel={this.state.quizLevel}
+                percent={this.state.percent}
+            />
         ) : (
             <Fragment>
                 <Levels />d
@@ -171,7 +194,7 @@ class Quiz extends Component {
                 <button
                     disabled={this.state.btnDisabled}
                     className="btnSubmit"
-                    onClick={this.nextQuestions}
+                    onClick={this.nextQuestion}
                 >
                     {this.state.idQuestion < this.state.maxQuestions - 1
                         ? "suivant"
