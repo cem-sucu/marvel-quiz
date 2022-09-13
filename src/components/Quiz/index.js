@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Levels from "../Levels";
 import { QuizMarvel } from "../quizMarvel";
-import ProgressBar from "../ProgessBar";
+import ProgressBar from "../ProgressBar";
 import "react-toastify/dist/ReactToastify.min.css";
 import { toast } from "react-toastify";
 import QuizOver from "../QuizOver";
@@ -9,22 +9,27 @@ import QuizOver from "../QuizOver";
 toast.configure();
 
 class Quiz extends Component {
-    state = {
-        levelsName: ["debutant", "confirme", "expert"],
-        quizLevel: 0,
-        maxQuestions: 10,
-        storedQuestions: [],
-        question: null,
-        options: [],
-        idQuestion: 0,
-        btnDisabled: true,
-        userAnswer: null,
-        score: 0,
-        showWelcomeMsg: false,
-        quizEnd: false,
-    };
+    constructor(props) {
+        super(props);
 
-    storedDataRef = React.createRef();
+        this.initialState = {
+            levelsName: ["debutant", "confirme", "expert"],
+            quizLevel: 0,
+            maxQuestions: 10,
+            storedQuestions: [],
+            question: null,
+            options: [],
+            idQuestion: 0,
+            btnDisabled: true,
+            userAnswer: null,
+            score: 0,
+            showWelcomeMsg: false,
+            quizEnd: false,
+        };
+
+        this.state = this.initialState;
+        this.storedDataRef = React.createRef();
+    }
 
     loadQuestions = (level) => {
         const fetchedArrayQuiz = QuizMarvel[0].quizz[level];
@@ -42,7 +47,7 @@ class Quiz extends Component {
         }
     };
 
-    showWelcomeMsg = (pseudo) => {
+    showToastMsg = (pseudo) => {
         if (!this.state.showWelcomeMsg) {
             this.setState({
                 showWelcomeMsg: true,
@@ -64,9 +69,9 @@ class Quiz extends Component {
         this.loadQuestions(this.state.levelsName[this.state.quizLevel]);
     }
 
-    nextQuestion = () => {
+    nextQuestion = (pseudo) => {
         if (this.state.idQuestion === this.state.maxQuestions - 1) {
-            this.gameOver();
+            this.gameOver(pseudo);
         } else {
             this.setState((prevState) => ({
                 idQuestion: prevState.idQuestion + 1,
@@ -78,7 +83,7 @@ class Quiz extends Component {
             this.setState((prevState) => ({
                 score: prevState.score + 1,
             }));
-            toast.success("Bravo, bonne réponse !", {
+            toast.success(`Bravo ${this.props.userData.pseudo}`, {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -88,22 +93,29 @@ class Quiz extends Component {
                 progress: undefined,
                 bodyClassName: "toastify-color",
             });
+            console.log(`salutt ${this.props.userData.pseudo}`);
         } else {
-            toast.error("Mauvaise réponse !", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                bodyClassName: "toastify-color",
-            });
+            toast.error(
+                `AAAh Mauvaise réponse ${this.props.userData.pseudo} !`,
+                {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    bodyClassName: "toastify-color",
+                }
+            );
         }
     };
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.storedQuestions !== prevState.storedQuestions) {
+        if (
+            this.state.storedQuestions !== prevState.storedQuestions &&
+            this.state.storedQuestions.length
+        ) {
             this.setState({
                 question:
                     this.state.storedQuestions[this.state.idQuestion].question,
@@ -111,7 +123,10 @@ class Quiz extends Component {
                     this.state.storedQuestions[this.state.idQuestion].options,
             });
         }
-        if (this.state.idQuestion !== prevState.idQuestion) {
+        if (
+            this.state.idQuestion !== prevState.idQuestion &&
+            this.state.storedQuestions.length
+        ) {
             this.setState({
                 question:
                     this.state.storedQuestions[this.state.idQuestion].question,
@@ -122,8 +137,8 @@ class Quiz extends Component {
             });
         }
 
-        if (this.props.userData.pseudo) {
-            this.showWelcomeMsg(this.props.userData.pseudo);
+        if (this.props.userData.pseudo !== prevProps.userData.pseudo) {
+            this.showToastMsg(this.props.userData.pseudo);
         }
     }
 
@@ -156,6 +171,11 @@ class Quiz extends Component {
         }
     };
 
+    loadLevelQuestions = (param) => {
+        this.setState({ ...this.initialState, quizlevel: param });
+        this.loadQuestions(this.state.levelsName[param]);
+    };
+
     render() {
         // const { pseudo } = this.props.userData;
 
@@ -181,10 +201,11 @@ class Quiz extends Component {
                 maxQuestions={this.state.maxQuestions}
                 quizLevel={this.state.quizLevel}
                 percent={this.state.percent}
+                loadLevelQuestions={this.loadLevelQuestions}
             />
         ) : (
             <Fragment>
-                <Levels />d
+                <Levels />
                 <ProgressBar
                     idQuestion={this.state.idQuestion}
                     maxQuestions={this.state.maxQuestions}
