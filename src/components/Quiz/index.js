@@ -176,7 +176,7 @@ class Quiz extends Component {
     };
 
     loadLevelQuestions = (param) => {
-        this.setState({...this.initialState, quizlevel: param });
+        this.setState({ ...this.initialState, quizlevel: param });
         this.loadQuestions(this.state.levelsName[param]);
     };
 
@@ -209,7 +209,10 @@ class Quiz extends Component {
             />
         ) : (
             <Fragment>
-                <Levels />
+                <Levels
+                    levelsName={this.state.levelsName}
+                    quizLevel={this.state.quizLevel}
+                />
                 <ProgressBar
                     idQuestion={this.state.idQuestion}
                     maxQuestions={this.state.maxQuestions}
