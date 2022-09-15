@@ -5,7 +5,7 @@ import ProgressBar from "../ProgressBar";
 import "react-toastify/dist/ReactToastify.min.css";
 import { Flip, toast, Zoom } from "react-toastify";
 import QuizOver from "../QuizOver";
-import { FaChevronRight } from "react-icons/fa"; // pour importer une icon via react icons
+import { AiOutlineMeh } from "react-icons/ai"; // pour importer une icon via react icons
 
 toast.configure();
 
@@ -186,7 +186,7 @@ class Quiz extends Component {
                     }`}
                     onClick={() => this.submitAnswer(option)}
                 >
-                    <FaChevronRight /> {option}
+                    <AiOutlineMeh /> {option}
                 </p>
             );
         });
