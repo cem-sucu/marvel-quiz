@@ -5,6 +5,7 @@ import ProgressBar from "../ProgressBar";
 import "react-toastify/dist/ReactToastify.min.css";
 import { toast } from "react-toastify";
 import QuizOver from "../QuizOver";
+import { FaChevronRight } from "react-icons/fa"; // pour importer une icon via react icons
 
 toast.configure();
 
@@ -192,6 +193,7 @@ class Quiz extends Component {
                         this.state.userAnswer === option ? "selected" : null
                     }`}
                 >
+                    <FaChevronRight />
                     {option}
                 </p>
             );

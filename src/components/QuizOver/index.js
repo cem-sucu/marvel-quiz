@@ -1,4 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
+import { GiTrophyCup } from "react-icons/gi";
+import { GiSadCrab } from "react-icons/gi";
 
 const QuizOver = React.forwardRef((props, ref) => {
     const {
@@ -30,6 +32,7 @@ const QuizOver = React.forwardRef((props, ref) => {
                     {quizLevel < levelsName.length ? (
                         <Fragment>
                             <p className="successMsg">
+                                <GiTrophyCup size="50px" />
                                 Bravo passez au niveau suivant
                             </p>
                             <button
@@ -42,7 +45,8 @@ const QuizOver = React.forwardRef((props, ref) => {
                     ) : (
                         <Fragment>
                             <p className="successMsg">
-                                Bravo vous êtes un expert de l'univers de Marvel
+                                <GiTrophyCup size="50px" /> Bravo vous êtes un
+                                expert de l'univers de Marvel
                             </p>
                             <button
                                 className="btnResult gameOver"
@@ -67,7 +71,7 @@ const QuizOver = React.forwardRef((props, ref) => {
                         className="failureMsg"
                         style={{ textAlign: "center", color: "red" }}
                     >
-                        Vous avez échoué !
+                        <GiSadCrab /> Vous avez échoué !
                     </p>
                 </div>
                 <div className="percentage">
