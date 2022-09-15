@@ -92,6 +92,9 @@ const Signup = (props) => {
 
                             <div className="inputBox">
                                 <input
+                                    minlength="4"
+                                    maxlength="8"
+                                    size="10"
                                     onChange={handleChange}
                                     value={password}
                                     type="password"
@@ -99,7 +102,8 @@ const Signup = (props) => {
                                     autoComplete="off"
                                     required
                                 />
-                                <label htmlFor="password">Mot de passe</label>
+
+                                <label htmlFor="password">Mot de passe (min 6 caractères)</label>
                             </div>
 
                             <div className="inputBox">
