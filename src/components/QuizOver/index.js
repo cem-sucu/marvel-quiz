@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { GiTrophyCup } from "react-icons/gi";
 import { GiSadCrab } from "react-icons/gi";
+import Loader from "../Loader/Loader";
 
 const QuizOver = React.forwardRef((props, ref) => {
     const {
@@ -99,11 +100,12 @@ const QuizOver = React.forwardRef((props, ref) => {
         ) : (
             <tr>
                 <td colSpan="3">
-                    <div className="loader"></div>
-                    <p style={{ textAlign: "center", color: "red" }}>
-                        Ce n'est pas grave, vous allez pouvoir recommencer,
-                        veuillez patientez !
-                    </p>
+                    <Loader
+                        loadingMsg={
+                            "Ce n'est pas grave, vous allez pouvoir recommencer, veuillez patientez !"
+                        }
+                        styling={{textAlign: "center", color: "red"}}
+                    />
                 </td>
             </tr>
         );

@@ -1,10 +1,11 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, user } from "../Firebase/firebaseConfig";
 import { getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import Logout from "../Logout";
 import Quiz from "../Quiz";
+import Loader from "../Loader/Loader";
 
 const Welcome = (props) => {
     const navigate = useNavigate();
@@ -38,10 +39,12 @@ const Welcome = (props) => {
     }, [userSession, navigate]);
 
     return userSession === null ? (
-        <Fragment>
-            <div className="loader"></div>
-            <p className="loaderText">Loading ...</p>
-        </Fragment>
+        <Loader
+            loadingMsg={
+                "Authentication..."
+            }
+            styling={{ textAlign: "center", color: "white" }}
+        />
     ) : (
         <div className="quiz-bg">
             <div className="container">
