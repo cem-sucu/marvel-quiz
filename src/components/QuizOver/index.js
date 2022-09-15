@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import { GiTrophyCup } from "react-icons/gi";
 import { GiSadCrab } from "react-icons/gi";
 import Loader from "../Loader/Loader";
+import Modal from "../Modal";
 
 const QuizOver = React.forwardRef((props, ref) => {
     const {
@@ -12,11 +13,21 @@ const QuizOver = React.forwardRef((props, ref) => {
         percent,
         loadLevelQuestions,
     } = props;
+
     const [asked, setAsked] = useState([]);
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         setAsked(ref.current);
     }, [ref]);
+
+    const showModal = (id) => {
+        setOpenModal(true);
+    };
+
+    const hideModal = (id) => {
+        setOpenModal(false);
+    };
 
     const averageGrade = maxQuestions / 2;
 
@@ -92,7 +103,12 @@ const QuizOver = React.forwardRef((props, ref) => {
                         <td>{question.question}</td>
                         <td>{question.answer}</td>
                         <td>
-                            <button className="btnInfo">Informations</button>
+                            <button
+                                className="btnInfo"
+                                onClick={() => showModal(question.heroId)}
+                            >
+                                Informations
+                            </button>
                         </td>
                     </tr>
                 );
@@ -104,7 +120,7 @@ const QuizOver = React.forwardRef((props, ref) => {
                         loadingMsg={
                             "Ce n'est pas grave, vous allez pouvoir recommencer, veuillez patientez !"
                         }
-                        styling={{textAlign: "center", color: "red"}}
+                        styling={{ textAlign: "center", color: "red" }}
                     />
                 </td>
             </tr>
@@ -128,6 +144,18 @@ const QuizOver = React.forwardRef((props, ref) => {
                     <tbody>{questionAnswer}</tbody>
                 </table>
             </div>
+
+            <Modal showModal={openModal} hideModal={hideModal}>
+                <div className="modalHeader">
+                    <h2>Titre</h2>
+                </div>
+                <div className="modalBody">
+                    <h3>Titre 2</h3>
+                </div>
+                <div className="modalFooter">
+                    <button className="modalBtn">Fermer</button>
+                </div>
+            </Modal>
         </>
     );
 });
