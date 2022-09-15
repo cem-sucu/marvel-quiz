@@ -4,7 +4,7 @@ import { GiSadCrab } from "react-icons/gi";
 
 const QuizOver = React.forwardRef((props, ref) => {
     const {
-        levelsName,
+        levelNames,
         score,
         maxQuestions,
         quizLevel,
@@ -29,7 +29,7 @@ const QuizOver = React.forwardRef((props, ref) => {
         score >= averageGrade ? (
             <Fragment>
                 <div className="stepsBtnContainer">
-                    {quizLevel < levelsName.length ? (
+                    {quizLevel < levelNames.length ? (
                         <Fragment>
                             <p className="successMsg">
                                 <GiTrophyCup size="50px" />

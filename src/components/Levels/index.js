@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Stepper from "react-stepper-horizontal";
 
-const Levels = ({ levelsName, quizLevel }) => {
+const Levels = ({ levelNames, quizLevel }) => {
     const [levels, setLevels] = useState([]);
 
     useEffect(() => {
-        const quizSteps = levelsName.map((level) => ({
+        const quizSteps = levelNames.map((level) => ({
             title: level.toUpperCase(),
         }));
         setLevels(quizSteps);
-    }, [levelsName]);
+    }, [levelNames]);
 
     console.log(quizLevel);
 
