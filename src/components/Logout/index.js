@@ -11,10 +11,8 @@ const Logout = () => {
 
     useEffect(() => {
         if (checked) {
-            //console.log("Déconnexion");
             signOut(auth)
                 .then(() => {
-                    console.log("Vous êtes déconnecté");
                     setTimeout(() => {
                         navigate("/");
                     }, 1000);

@@ -60,6 +60,7 @@ class Quiz extends Component {
                 bodyClassName: "toastify-color-welcome",
             });
         }
+        console.log(pseudo);
     };
 
     componentDidMount() {
