@@ -11,8 +11,6 @@ const Levels = ({ levelNames, quizLevel }) => {
         setLevels(quizSteps);
     }, [levelNames]);
 
-    console.log(quizLevel);
-
     return (
         <div className="levelsContainer" style={{ background: "transparent" }}>
             <Stepper

@@ -25,8 +25,6 @@ const Welcome = (props) => {
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         const docData = snapshot.data(); // objet
-                        console.log(docData);
-                        console.log(snapshot.id);
                         setUserData(docData);
                     }
                 })
